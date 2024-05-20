@@ -7,6 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 setup(
     name="django_superapp",
     packages=find_packages(where="src"),
+    description="Build your startup's product faster.",
     long_description=long_description,
     long_description_content_type='text/markdown',
     url="https://github.com/django-superapp/django-superapp",
@@ -14,12 +15,21 @@ setup(
     author_email="django-superapp@bringes.io",
     license="MIT",
     package_dir={"": "src"},
+    entry_points={
+        'console_scripts': [
+            'django_superapp=django_superapp.cli.main:cli',
+        ],
+    },
     install_requires=[
         "Django >= 5.0.0",
         "django-unfold >= 0.22.0",
         "django-svelte-jsoneditor >= 0.4.2",
         "django-import-export >= 4.0.3",
         "django-admin-confirm >= 1.0.0",
+        "click >= 8.1.7",
+        "copier >= 9.2.0",
+        "requests >= 2.31.0",
+        "pydantic >= 2.7.1",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

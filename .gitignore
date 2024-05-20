@@ -356,3 +356,5 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pydev,intellij+iml
 
 .env.local
+
+test_project
