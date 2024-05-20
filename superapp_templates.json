@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "default": {
+      "name": "Default",
+      "description": "The default project",
+      "repo": "https://github.com/django-superapp/django-superapp-default-project.git",
+      "branch": "main",
+      "default": true
+    }
+  },
+  "apps": {
+    "sample_app": {
+      "name": "Sample App",
+      "description": "A sample app",
+      "repo": "https://github.com/django-superapp/django-superapp-sample-app.git",
+      "branch": "main"
+    }
+  }
+}
