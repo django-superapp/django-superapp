@@ -4,4 +4,5 @@
 ```bash
 make install-requirements
 make install
+make release
 ```

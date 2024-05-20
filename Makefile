@@ -1,13 +1,18 @@
 SHELL := /bin/bash
+#include .env.local
+#export $(shell sed 's/=.*//' .env.local)
 
 # Update PATH variable
 PATH := $(PATH):/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin
 
 venv: venv/touchfile
 
+install-virtualenv:
+	python -m pip install --break-system-packages --user virtualenv;
+
 venv/touchfile: requirements.txt
-	test -d venv || virtualenv venv
-	touch venv/touchfile
+	test -d venv || virtualenv venv;
+	touch venv/touchfile;
 
 install-requirements: venv/touchfile
 	. venv/bin/activate && python -m pip install -r requirements.txt
@@ -34,7 +39,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .pytest_cache
 
 release: dist ## package and upload a release
-	twine upload dist/*
+	. venv/bin/activate && twine upload dist/*
 
 dist: venv/touchfile clean ## builds source and wheel package
 	. venv/bin/activate && python setup.py sdist
@@ -43,3 +48,4 @@ dist: venv/touchfile clean ## builds source and wheel package
 
 install: venv/touchfile clean ## install the package to the active Python's site-packages
 	. venv/bin/activate && python setup.py install
+
