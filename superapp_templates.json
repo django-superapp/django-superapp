@@ -14,6 +14,18 @@
       "description": "A sample app",
       "repo": "https://github.com/django-superapp/django-superapp-sample-app.git",
       "branch": "main"
+    },
+    "sample_app_2": {
+      "name": "Sample App 2",
+      "description": "A sample app 2",
+      "repo": "https://github.com/django-superapp/django-superapp-sample-app.git",
+      "branch": "main"
+    },
+    "sample_app_3": {
+      "name": "Sample App 3",
+      "description": "A sample app 3",
+      "repo": "https://github.com/django-superapp/django-superapp-sample-app.git",
+      "branch": "main"
     }
   }
 }
