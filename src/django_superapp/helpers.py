@@ -3,7 +3,7 @@ from typing import List, Optional, Dict, Any
 
 from django.contrib.admin import helpers
 from django.contrib.admin.utils import lookup_field
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import ForeignKey
 from django.forms import ModelChoiceField
 from django.http import HttpRequest
@@ -19,7 +19,8 @@ from django.db import models
 
 from admin_confirm import AdminConfirmMixin
 
-from django_superapp_core.db_fields import ChainedForeignKey
+from django_superapp.db_fields import ChainedForeignKey
+from django_superapp.widgets import ChainedAdminSelect
 
 
 class SuperAppAdminReadonlyField(UnfoldAdminReadonlyField):

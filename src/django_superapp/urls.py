@@ -33,7 +33,7 @@ main_admin_urlpatterns = []
 
 
 def extend_with_superapp_urlpatterns(main_urlpatterns, superapp_apps):
-    from django_superapp_core.sites import superapp_admin_site
+    from django_superapp.sites import superapp_admin_site
     main_urlpatterns += [
         path("portal/", superapp_admin_site.urls),
     ]
