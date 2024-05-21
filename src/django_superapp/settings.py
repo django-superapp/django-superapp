@@ -15,7 +15,7 @@ def extend_superapp_settings(main_settings, package):
         except ModuleNotFoundError:
             continue
 
-        if settings_module.extend_superapp_settings:
+        if hasattr(settings_module, "extend_superapp_settings"):
             settings_module.extend_superapp_settings(main_settings)
 
 

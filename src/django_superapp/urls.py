@@ -10,9 +10,10 @@ def extend_superapp_urlpatterns(main_urlpatterns, package):
         try:
             urls_module = importlib.import_module(submodule_name)
         except ModuleNotFoundError:
+            # TODO: when the submodule has a not found exception, we shouldn't raise this exception
             continue
 
-        if urls_module.extend_superapp_urlpatterns:
+        if hasattr(urls_module, "extend_superapp_urlpatterns"):
             urls_module.extend_superapp_urlpatterns(main_urlpatterns)
 
 
@@ -25,7 +26,7 @@ def extend_superapp_admin_urlpatterns(main_admin_urlpatterns, package):
         except ModuleNotFoundError:
             continue
 
-        if urls_module.extend_superapp_admin_urlpatterns:
+        if hasattr(urls_module, "extend_superapp_admin_urlpatterns"):
             urls_module.extend_superapp_admin_urlpatterns(main_admin_urlpatterns)
 
 
