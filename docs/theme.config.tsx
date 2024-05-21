@@ -8,7 +8,7 @@ const logo = (
     viewBox="0 0 548 180"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    style={{marginTop: "10px", color: "#020D37"}}
+    style={{marginTop: "10px"}}
     className={'logo'}
   >
       <path
