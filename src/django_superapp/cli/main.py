@@ -66,6 +66,7 @@ def update_project(target_directory):
 
     run_update(
         str(target_directory),
+        overwrite=True,
     )
 
 
