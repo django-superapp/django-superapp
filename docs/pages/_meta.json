@@ -1,0 +1,34 @@
+{
+  "index": {
+    "title": "Get Started",
+    "href": ""
+  },
+  "project-structure": {
+    "title": "Project Structure",
+    "href": ""
+  },
+  "-- Apps": {
+    "type": "separator",
+    "title": "Apps"
+  },
+  "admin-portal": "Admin Portal",
+  "apps-configuration": "Apps Configuration",
+  "-- More": {
+    "type": "separator",
+    "title": "More"
+  },
+  "pypi-link": {
+    "title": "PyPi Package ↗",
+    "href": "https://pypi.org/project/django-superapp/",
+    "newWindow": true
+  },
+
+  "404": {
+    "type": "page",
+    "theme": {
+      "timestamp": false,
+      "typesetting": "article"
+    }
+  }
+}
+

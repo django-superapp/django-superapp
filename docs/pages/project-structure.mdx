@@ -1,0 +1,59 @@
+import { FileIcon, NewsletterIcon } from '@components/icons'
+import { Card, Cards, FileTree } from 'nextra/components'
+
+## Project Structure
+
+<FileTree>
+    <FileTree.Folder name="superapp" defaultOpen>
+        <FileTree.File name="settings.py" />
+        <FileTree.File name="urls.py" />
+        <FileTree.File name="wsgi.py" />
+        <FileTree.Folder name="apps" defaultOpen>
+            <FileTree.Folder name="sample_app" defaultOpen>
+                <FileTree.Folder name="migrations" defaultOpen>
+                    <FileTree.File name="0001_initial.py" />
+                </FileTree.Folder>
+                <FileTree.File name="settings.py" />
+                <FileTree.File name="urls.py" />
+            </FileTree.Folder>
+        </FileTree.Folder>
+    </FileTree.Folder>
+    <FileTree.File name="manage.py" />
+</FileTree>
+
+
+The difference between a normal Django project and a Django SuperApp is that each app in the apps directory has its own `settings.py` and `urls.py` files, which will be imported automatically by the system.
+
+## `apps > settings.py`
+When the app is loaded by the system, the `settings.py` file is imported, and the `extend_superapp_settings` function is called with the main settings as an argument. This function should update the `main_settings` variable with the additional configurations that need to be added to the main settings.
+
+```py filename=apps/sample_app/settings.py"
+def extend_superapp_settings(main_settings):
+    # Add the app to the installed apps
+    main_settings['INSTALLED_APPS'] += [
+        'superapp.apps.sample_app',
+    ]
+```
+
+## `apps > urls.py`
+The code snippet defines two functions, `extend_superapp_urlpatterns` and `extend_superapp_admin_urlpatterns`, that extend the main URL patterns of a Django SuperApp with additional routes. The `extend_superapp_admin_urlpatterns` function will render the view inside the SuperApp Admin Portal.
+
+```py filename=apps/sample_app/settings.py"
+from django.urls import path
+
+from superapp.apps.sample_app.views import hello_world
+
+
+def extend_superapp_urlpatterns(main_urlpatterns):
+    # Add new URL patterns.
+    main_urlpatterns += [
+        path('hello_world/', hello_world),
+    ]
+
+
+def extend_superapp_admin_urlpatterns(main_admin_urlpatterns):
+    # Add new Admin URL patterns.
+    main_admin_urlpatterns += [
+        path('hello_world/', hello_world),
+    ]
+```

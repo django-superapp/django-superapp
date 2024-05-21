@@ -1,0 +1,21 @@
+# Models Validation
+
+If you want to validate a model field using custom logic, you can override the `clean` method in the model class.
+
+```py filename="superapp/apps/<app_name>/models.py"
+from django.core.exceptions import ValidationError
+from django_superapp.helpers import BaseModel
+from django.db import models
+
+class SampleModel(BaseModel):
+    username = models.CharField(max_length=100)
+
+    def clean(self):
+        if len(self.username) <= 3:
+            raise ValidationError("Username must be longer than 3 characters.")
+```
+
+### Useful Resources
+
+- [Django Models](https://docs.djangoproject.com/en/5.0/topics/db/models/)
+

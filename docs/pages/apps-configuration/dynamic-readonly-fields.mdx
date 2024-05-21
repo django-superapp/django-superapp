@@ -1,0 +1,46 @@
+import Image from 'next/image'
+import { Steps } from 'nextra/components'
+
+# Dynamic Readonly Fields
+
+If you have a model field that should be read-only based on a user's permission, you can use the `get_readonly_fields` method in the model admin.
+
+<Image src="/assets/docs/sample-app/readonly-field.png" alt="Table List Action" width={800} height={800} className={'mt-3'} />
+
+## Instructions
+<Steps>
+### Create permissions
+```py filename="superapp/apps/<app_name>/models.py"
+from django_superapp.helpers import BaseModel
+
+class SampleModel(BaseModel):
+    class Meta:
+        permissions = [
+            ("can_edit_erp_id", "Can edit ERP ID"),
+        ]
+```
+
+### Configure model admin
+```py filename="superapp/apps/<app_name>/admin.py"
+import unfold
+from django.contrib import admin
+from django_superapp.helpers import SuperAppModelAdmin
+from django_superapp.sites import superapp_admin_site
+from .models import SampleModel
+
+@admin.register(SampleModel, site=superapp_admin_site)
+class SampleModelAdmin(SuperAppModelAdmin):
+    def get_readonly_fields(self, request, obj=None):
+        readonly_fields = super().get_readonly_fields(request, obj)
+
+        if request.user.has_perm('app.can_edit_erp_id') is False:
+            readonly_fields = readonly_fields + ('erp_id',)
+
+return readonly_fields
+```
+</Steps>
+
+### Useful Resources
+
+- [Django Admin Site](https://docs.djangoproject.com/en/5.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.get_readonly_fields)
+

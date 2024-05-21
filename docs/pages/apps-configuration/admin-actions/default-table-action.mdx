@@ -1,0 +1,29 @@
+import Image from 'next/image'
+
+# Default Table Actions
+
+<Image src="/assets/docs/admin-portal/default-table-action.png" alt="Default Table Action" width={1024} height={1024} className={'mt-3'} />
+
+```py filename="superapp/apps/<app_name>/admin.py"
+from django.contrib import admin
+from django_superapp.helpers import SuperAppModelAdmin
+from django_superapp.sites import superapp_admin_site
+from django.utils.translation import gettext_lazy as _
+from .models import SampleModel
+
+@admin.register(SampleModel, site=superapp_admin_site)
+class SampleModelAdmin(SuperAppModelAdmin):
+    actions = [
+        "sample_default_action",
+    ]
+
+    @admin.action(description=_("My action title here"))
+    def sample_default_action(self, request, queryset):
+        # Implement your logic here, for eg.
+        for item in queryset.all():
+            item.x = 1
+            item.save()
+```
+### Useful Resources
+
+- [Unfold Actions](https://github.com/unfoldadmin/django-unfold?tab=readme-ov-file#actions)

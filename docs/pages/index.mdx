@@ -1,0 +1,60 @@
+# SuperApp
+
+**SuperApp** is a framework on top of Django, designed to accelerate the development of software projects for startups. It incorporates all the powerful features of Django, plus additional tools to seamlessly integrate various applications.
+
+import { Callout, Steps } from 'nextra/components'
+import Link from 'next/link'
+
+## Get Started
+
+<Steps>
+    ### Install
+
+    To create a SuperApp project you need `django_superapp` installed. You can do this
+    using `pipx`:
+
+    ```shell
+    pipx install django_superapp
+    ```
+
+    ### Generate the Project
+
+    Next, create a new SuperApp project using the `create-project` command
+
+    ```shell
+    django_superapp create-project --project-template default ./my_superapp
+    ```
+
+    With the above command, a new project will be created using `default` template in the `my_superapp` directory.
+
+    ### Add a sample app
+
+    Lastly, add a sample app to the project using the `add-app` command:
+
+    ```shell
+    cd my_superapp
+    django_superapp add-app --app-template sample_app
+    ```
+
+### Start the server
+    To get started, first make sure you have [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/) installed on your system.
+
+    Finally, you can start the development server using the following command:
+
+    ```shell
+    make setup-sample-env
+    make start-docker
+    ```
+
+    The above command will start the development server and you can access the project at [http://localhost:8080](http://localhost:8080).
+
+
+### Create a superuser
+
+    To create a superuser, run the following command:
+
+    ```shell
+    docker-compose exec web python3 manage.py createsuperuser
+    ```
+</Steps>
+

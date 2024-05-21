@@ -1,0 +1,33 @@
+import Image from 'next/image'
+
+# Table Detail Action
+
+<Image src="/assets/docs/admin-portal/table-detail-action.png" alt="Table Detail Action" width={1024} height={1024} className={'mt-3'} />
+
+```py filename="superapp/apps/<app_name>/admin.py"
+import unfold
+from django.contrib import admin
+from django_superapp.helpers import SuperAppModelAdmin
+from django_superapp.sites import superapp_admin_site
+from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
+from .models import SampleModel
+
+@admin.register(SampleModel, site=superapp_admin_site)
+class SampleModelAdmin(SuperAppModelAdmin):
+    actions_detail = [
+        "sample_row_action",
+    ]
+
+    @unfold.decorators.action(description=_("My action title here"))
+    def sample_detail_action(self, request, object_id: int):
+        # Implement your logic here, for eg.
+        sample = SampleModel.objects.get(pk=object_id)
+        return redirect(
+            reverse_lazy("admin:app_samplemodel_change", args=(object_id,))
+        )
+```
+### Useful Resources
+
+- [Unfold Actions](https://github.com/unfoldadmin/django-unfold?tab=readme-ov-file#actions)
