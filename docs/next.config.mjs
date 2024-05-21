@@ -1,5 +1,7 @@
 import nextra from 'nextra'
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 const withSuperApp = nextra({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
@@ -41,5 +43,10 @@ export default withSuperApp({
       use: ['@svgr/webpack']
     })
     return config
-  }
+  },
+
+  images: isDev? undefined: {
+    loader: 'custom',
+    loaderFile: './imageLoader.js',
+  },
 })
