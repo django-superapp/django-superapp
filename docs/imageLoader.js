@@ -3,10 +3,5 @@ const normalizeSrc = src => {
 };
 
 export default function cloudflareLoader ({ src, width, quality }) {
-    const params = [`width=${width}`];
-    if (quality) {
-        params.push(`quality=${quality}`);
-    }
-    const paramsString = params.join(',');
-    return `/cdn-cgi/image/${paramsString}/${normalizeSrc(src)}`;
+    return `/${normalizeSrc(src)}`;
 };

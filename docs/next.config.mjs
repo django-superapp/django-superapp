@@ -45,7 +45,7 @@ export default withSuperApp({
     return config
   },
 
-  images: isDev? undefined: {
+  images: {
     loader: 'custom',
     loaderFile: './imageLoader.js',
   },
