@@ -18,36 +18,34 @@ def get_superapp_templates() -> SuperAppTemplate:
         raise
 
 
+superapp_templates = get_superapp_templates()
+
+
 @click.group()
 def cli():
     pass
 
 
 @cli.command()
+@click.option(
+    '--project-template',
+    type=click.Choice([
+        project_name for project_name in superapp_templates.projects.keys()
+    ], case_sensitive=False),
+    default=[
+        project_name for project_name in superapp_templates.projects.keys()
+        if superapp_templates.projects[project_name].default
+    ][0],
+    show_default=True,
+    show_choices=True,
+    prompt=True,
+)
 @click.argument('target_directory')
-def create_project(target_directory):
+def create_project(project_template, target_directory):
     """Bootstrap a project into target directory."""
-    superapp_templates = get_superapp_templates()
-
-    click.echo("Available projects:")
-    for slug, project in superapp_templates.projects.items():
-        click.echo(f" - {slug}: {project.description}")
-
-    project_choice = click.prompt(
-        'Please choose a project',
-        type=click.Choice([
-            project_name for project_name in superapp_templates.projects.keys()
-        ], case_sensitive=False),
-        default=[
-            project_name for project_name in superapp_templates.projects.keys()
-            if superapp_templates.projects[project_name].default
-        ][0],
-        show_default=True,
-        show_choices=True,
-    )
 
     # Get the chosen project details
-    project_template = superapp_templates.projects[project_choice]
+    project_template = superapp_templates.projects[project_template]
 
     run_copy(
         project_template.repo,
@@ -58,33 +56,27 @@ def create_project(target_directory):
 
 
 @cli.command()
-@click.option('--app-name', default=None, help='Name of the application to create')
-def add_app(app_name):
-    """Bootstrap a project into target directory."""
-    superapp_templates = get_superapp_templates()
+@click.option(
+    '--app-template',
+    type=click.Choice([
+        slug for slug in superapp_templates.apps.keys()
+    ]),
+    help='Name of the application template to use',
+    show_choices=True,
+    prompt=True,
 
-    if app_name:
-        app_choice = app_name
-    else:
-        click.echo("Available apps:")
-        for slug, app in superapp_templates.apps.items():
-            click.echo(f" - {slug}: {app.description}")
-
-        app_choice = click.prompt(
-            'Please type the app name',
-            type=click.Choice([
-                slug for slug in superapp_templates.apps.keys()
-            ], case_sensitive=False),
-            show_choices=True,
-        )
-
-    target_path = os.path.join("superapp", "apps", app_choice)
+)
+def add_app(app_template):
+    """Add an existing app to the project."""
+    target_path = os.path.join("superapp", "apps", app_template)
 
     if not os.path.exists("superapp/apps"):
-        os.makedirs("superapp/apps")
+        raise click.ClickException(
+            "The superapp/apps directory does not exist. Make sure you are in the root of the project."
+        )
 
     # Get the chosen project details
-    app_template = superapp_templates.apps[app_choice]
+    app_template = superapp_templates.apps[app_template]
 
     run_copy(
         app_template.repo,
