@@ -1,0 +1,62 @@
+import { Steps } from 'nextra/components'
+
+# Multi-DB
+This feature allows you to connect to multiple databases and route queries to the correct database based on the model.
+
+## Instructions
+<Steps>
+    ### Configure Databases
+    Add the following to your `settings.py` file:
+    ```py filename="superapp/settings.py"
+    DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('SUPERAPP_DATABASE_URL')),
+    'database2': dj_database_url.config(default=os.environ.get('SUPERAPP_SECOND_DATABASE_URL')),  # Here it is
+}
+    DATABASE_ROUTERS = ["app.database_routers.DefaultDbRouter"]
+    ```
+
+    ### Create Database Router
+    ```py filename="app/database_routers.py"
+    from app.models import SampleTableDatabase2
+
+    # Docs: https://docs.djangoproject.com/en/5.0/topics/db/multi-db/
+
+    class DefaultDbRouter(object):
+    def db_for_read(self, model, **hints):
+    if model == SampleTableDatabase2:
+    return 'database2'
+    return 'default'
+
+    def db_for_write(self, model, **hints):
+    if model == SampleTableDatabase2:
+    return 'database2'
+    return 'default'
+
+    def allow_migrate(self, db, app_label, model_name=None, **hints):
+    return db == 'default'
+    ```
+
+    ### Configure the Models
+    ```py filename="app/models.py"
+    class SampleTableDatabase2(models.Model):
+    name = models.CharField(max_length=1024)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+    db_table = 'sample_table_database2'
+    managed = False
+
+    def __str__(self):
+    return self.name
+    ```
+
+    ### Compile Messages
+    ```shell
+    python manage.py compilemessages
+    ```
+</Steps>
+
+### Useful Resources
+
+- [Django Multi DB Routing](https://docs.djangoproject.com/en/5.0/topics/db/multi-db/)

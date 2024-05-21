@@ -1,0 +1,74 @@
+import {
+    Steps
+} from "nextra/components";
+
+# Create A POST Endpoint
+
+If you want to create a POST endpoint in your SuperApp app, you can follow the steps below.
+
+<Steps>
+    ### Create the View
+    ```py filename="superapp/apps/<app_name>/views.py"
+    from django.http import JsonResponse
+    from django.views.generic import View
+
+    class SamplePostView(View):
+        def post(self, request, *args, **kwargs):
+            username = request.POST.get('username')
+            comment = request.POST.get('comment')
+
+            # Here you can add your logic to save the comment to the database or perform any other actions
+
+            # For demonstration purposes, let's just return the received data
+            response_data = {
+                'username': username,
+                'comment': comment
+            }
+            return JsonResponse(response_data)
+    ```
+
+    ### Update URL patterns
+    ```py filename="superapp/apps/<app_name>/urls.py"
+    from superapp.apps.sample_app.views import CustomPageView
+    from django.urls import path
+    from .views import SamplePostView
+
+    def extend_superapp_urlpatterns(main_urlpatterns):
+        main_urlpatterns += [
+            path("sample_post_endpont", SamplePostView, name="custom_page"),
+        ]
+
+    def extend_superapp_admin_urlpatterns(main_admin_urlpatterns):
+        pass
+    ```
+
+    ### Create a Form
+    ```html filename="superapp/apps/<app_name>/templates/sample_post_form.html"
+    <div class="max-w-md mx-auto bg-white rounded p-6">
+        <h2 class="text-2xl font-semibold mb-4">Submit Your Comment</h2>
+
+        <!-- Form -->
+        <form action="" method="post">
+           {% csrf_token %}
+            <!-- Username Input -->
+            <div class="mb-4">
+                <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+                <input type="text" id="username" name="username" class="border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter your username" required>
+            </div>
+
+            <!-- Comment Input -->
+            <div class="mb-4">
+                <label for="comment" class="block text-gray-700 text-sm font-bold mb-2">Comment:</label>
+                <textarea id="comment" name="comment" rows="4" class="border border-gray-300 rounded px-4 py-2 w-full focus:outline-none focus:border-blue-500" placeholder="Enter your comment" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="bg-primary-600 border border-transparent font-medium px-3 py-2 rounded-md text-sm text-white">Submit</button>
+
+        </form>
+    </div>
+    ```
+
+</Steps>
+
+

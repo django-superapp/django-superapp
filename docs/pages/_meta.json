@@ -9,10 +9,12 @@
   },
   "-- Apps": {
     "type": "separator",
-    "title": "Apps"
+    "title": "Tutorials"
   },
   "admin-portal": "Admin Portal",
-  "apps-configuration": "Apps Configuration",
+  "apps": "Apps",
+  "translations": "Translations",
+  "multi-db": "Multi-DB",
   "-- More": {
     "type": "separator",
     "title": "More"

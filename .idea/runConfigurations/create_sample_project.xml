@@ -24,7 +24,7 @@
       </ENTRIES>
     </EXTENSION>
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/django_superapp/cli/main.py" />
-    <option name="PARAMETERS" value="create-project my_superapp" />
+    <option name="PARAMETERS" value="create-project ../my_superapp" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="true" />
     <option name="MODULE_MODE" value="false" />

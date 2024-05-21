@@ -81,8 +81,8 @@ def update_project(target_directory):
     prompt=True,
 
 )
-def add_app(app_template):
-    """Add an existing app to the project."""
+def create_app(app_template):
+    """Create an app inside the project."""
     target_path = os.path.join("superapp", "apps", app_template)
 
     if not os.path.exists("superapp/apps"):
@@ -100,6 +100,16 @@ def add_app(app_template):
         **(app_template.kwargs or {}),
     )
 
+
+@cli.command()
+@click.argument('target_directory')
+def update_app(target_directory):
+    """Update a project with remote changes."""
+
+    run_update(
+        str(target_directory),
+        overwrite=True,
+    )
 
 if __name__ == '__main__':
     cli()

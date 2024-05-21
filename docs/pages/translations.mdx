@@ -1,0 +1,51 @@
+import { Steps } from 'nextra/components'
+
+# Translations
+If you want to add translations to your app, you can do so by following the steps below.
+
+## Instructions
+<Steps>
+    ### Configure Localization
+    Add the following to your `settings.py` file:
+    ```py filename="superapp/settings.py"
+    ######################################################################
+    # Localization
+    # Docs: https://docs.djangoproject.com/en/5.0/topics/i18n/translation/
+    ######################################################################
+    LANGUAGE_CODE = "en"
+
+    TIME_ZONE = "Europe/Berlin"
+
+    USE_I18N = True
+
+    USE_TZ = True
+
+    LANGUAGES = (
+    ("en", _("English")),
+    ("de", _("German")),
+    )
+    LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+    ```
+
+    ### Generate locale files
+    ```shell
+    mkdir -p site-packages
+    ln -s /usr/local/lib/python3.11/site-packages/unfold site-packages/unfold
+    ln -s /usr/local/lib/python3.11/site-packages/django site-packages/django
+    python manage.py makemessages -l de -l en -i venv -s
+    rm -r site-packages
+    ```
+
+    ### Update the translations
+    Please review and update all translations in the `locale` folder.
+
+    ### Compile messages
+    ```shell
+    python manage.py compilemessages
+    ```
+</Steps>
+
+### Useful Resources
+
+- [Django Translations](https://docs.djangoproject.com/en/5.0/topics/i18n/translation/)
+- [Unfold Model Translations](https://github.com/unfoldadmin/django-unfold?tab=readme-ov-file#django-modeltranslation)

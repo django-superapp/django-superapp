@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="add-sample-app" type="PythonConfigurationType" factoryName="Python">
+  <configuration default="false" name="update-sample-app" type="PythonConfigurationType" factoryName="Python">
     <module name="django-superapp" />
     <option name="ENV_FILES" value="" />
     <option name="INTERPRETER_OPTIONS" value="" />
@@ -8,7 +8,7 @@
       <env name="PYTHONUNBUFFERED" value="1" />
     </envs>
     <option name="SDK_HOME" value="" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../my_superapp" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../my_superapp/superapp/apps/sample_app" />
     <option name="IS_MODULE_SDK" value="true" />
     <option name="ADD_CONTENT_ROOTS" value="true" />
     <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -24,7 +24,7 @@
       </ENTRIES>
     </EXTENSION>
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/django_superapp/cli/main.py" />
-    <option name="PARAMETERS" value="create-app --app-template sample_app" />
+    <option name="PARAMETERS" value="update-app ." />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="true" />
     <option name="MODULE_MODE" value="false" />

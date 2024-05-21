@@ -36,8 +36,8 @@ const config: DocsThemeConfig = {
         const {route} = useRouter()
         const socialCard =
             route === '/' || !title
-                ? 'https://nextra.site/og.jpeg'
-                : `https://nextra.site/api/og?title=${title}`
+                ? 'https://django-superapp.bringes.io/og.jpeg'
+                : `https://django-superapp.bringes.io/api/og?title=${title}`
 
         return (
             <>
@@ -47,16 +47,16 @@ const config: DocsThemeConfig = {
                 <meta httpEquiv="Content-Language" content="en"/>
                 <meta
                     name="description"
-                    content="Make beautiful websites with Next.js & MDX."
+                    content="Build your app faster with Django SuperApp."
                 />
                 <meta
                     name="og:description"
-                    content="Make beautiful websites with Next.js & MDX."
+                    content="Build your app faster with Django SuperApp."
                 />
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:image" content={socialCard}/>
-                <meta name="twitter:site:domain" content="nextra.site"/>
-                <meta name="twitter:url" content="https://nextra.site"/>
+                <meta name="twitter:site:domain" content="django-superapp.bringes.io"/>
+                <meta name="twitter:url" content="https://django-superapp.bringes.io"/>
                 <meta
                     name="og:title"
                     content={title ? title + ' – SuperApp' : 'SuperApp'}
@@ -94,7 +94,7 @@ const config: DocsThemeConfig = {
             }
             return <>{title}</>
         },
-        defaultMenuCollapseLevel: 1,
+        defaultMenuCollapseLevel: 2,
         toggleButton: true
     },
     footer: {

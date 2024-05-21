@@ -1,0 +1,55 @@
+import { Steps } from 'nextra/components'
+
+# Users Permissions
+
+Permissions allow you to restrict access to certain parts of the admin portal. This is useful when you have multiple types of users and want to restrict access to certain parts of the application
+
+## Instructions
+<Steps>
+### Create Group
+    Go to `Groups` and then create a group named `limited-users` and grant the following permissions:
+    ```
+    - Can view users
+    - Can view sample model
+    ```
+
+### Create User
+    Go to `Users` on admin interface and create a new user (username: `limited-user`, pass: `dev12345`) and mark it as staff.
+    Make sure to assign the user to the `limited-users` group.
+
+    Obs. Staff members can login to the admin interface.
+
+### Add Permission to Sidebar Navigation Link
+    ```py filename="superapp/apps/admin_portal/settings.py"
+    from django.utils.translation import gettext_lazy as _
+    from django.urls import reverse_lazy
+
+
+    def extend_superapp_settings(main_settings):
+        # ...
+        main_settings['UNFOLD']['SIDEBAR'] = {
+            # ...
+            "navigation": [
+                {
+                    "title": _("Navigation"),
+                    # ...
+                    "items": [
+                        {
+                            # ...
+                            "permission": lambda request: request.user.has_perm('app.view_<modelname>'),
+                        },
+                    ]
+                }
+            ]
+        }
+    ```
+### List all Permisisons (optional)
+    ```shell
+    python manage.py list_all_permissions
+    ```
+</Steps>
+
+### Useful Resources
+
+- [Django Permissions](https://docs.djangoproject.com/en/5.0/topics/auth/default/)
+

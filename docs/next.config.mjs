@@ -6,10 +6,13 @@ const withSuperApp = nextra({
   theme: 'nextra-theme-docs',
   themeConfig: './theme.config.tsx',
   // latex: true,
-  // flexsearch: {
-  //   codeblocks: false
-  // },
+  flexsearch: {
+    codeblocks: true
+  },
   defaultShowCopyCode: true,
+  codeHighlight: true,
+  readingTime: true,
+  staticImage: true,
 })
 
 export default withSuperApp({

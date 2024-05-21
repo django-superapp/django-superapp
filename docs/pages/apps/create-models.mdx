@@ -1,0 +1,50 @@
+import {
+    Steps
+} from "nextra/components";
+
+# Create Models
+
+If you want to create a new page in your app, you can follow the steps below.
+
+<Steps>
+    ### Create a Model
+    ```py filename="superapp/apps/<app_name>/models.py"
+    from django.db import models
+
+    class Comments(models.Model):
+        username = models.CharField(max_length=100)
+        comment = models.TextField()
+
+        def __str__(self):
+            return f"{self.username}: {self.comment}"
+    ```
+
+    ### Create Migrations
+    ```shell
+    python manage.py makemigrations
+    ```
+
+    ### Apply Migrations
+    ```shell
+    python manage.py migrate
+    ```
+
+    ### Insert Rows
+
+    ```py filename="superapp/apps/<app_name>/views.py"
+    class CustomPageView(PermissionRequiredMixin,View):
+        permission_required = ['app.can_view_custom_page']
+
+        def get(self, request, context, **kwargs):
+            new_comment = Comments(username=username, comment=comment)
+            new_comment.save()
+
+            context = {
+                **context,
+                'message': 'The comment has been created!',
+            }
+            return render(request, 'app/custom_page.html', context)
+    ```
+</Steps>
+
+

@@ -1,0 +1,30 @@
+import { Steps } from 'nextra/components'
+
+# Register Models
+
+Permissions allow you to restrict access to certain parts of the admin portal. This is useful when you have multiple types of users and want to restrict access to certain parts of the application
+
+## Instructions
+<Steps>
+### Register the Model
+```py filename="superapp/apps/<app_name>/admin.py"
+@admin.register(SampleModel, site=superapp_admin_site)
+class SampleModelAdmin(SuperAppModelAdmin):
+    pass
+```
+### Add Sidebar Navigation Link
+    Please follow the [sidebar navigation](/docs/admin-portal/sidebar-navigation) guide to add a link to the model in the sidebar.
+
+### Configure the ModelAdmin
+     You can display specific fields in the list view of the model by using the `list_display` attribute in the `ModelAdmin` class.
+```py filename="superapp/apps/<app_name>/admin.py"
+@admin.register(SampleModel, site=superapp_admin_site)
+class SampleModelAdmin(SuperAppModelAdmin):
+    list_display = ('username', 'comment')
+```
+</Steps>
+
+### Useful Resources
+
+- [Unfold ModelAdmin options](https://github.com/unfoldadmin/django-unfold?tab=readme-ov-file#available-unfoldadminmodeladmin-options)
+

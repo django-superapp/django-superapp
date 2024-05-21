@@ -1,9 +1,12 @@
+import { Steps } from 'nextra/components'
+import Image from 'next/image'
+
 # SuperApp
 
 **SuperApp** is a framework on top of Django, designed to accelerate the development of software projects for startups. It incorporates all the powerful features of Django, plus additional tools to seamlessly integrate various applications.
 
-import { Callout, Steps } from 'nextra/components'
-import Link from 'next/link'
+<Image src="/assets/docs/admin-portal/admin-portal.svg" alt="Admin Portal Screenshot" width={1024} height={1024} className={'mt-3'} />
+
 
 ## Get Started
 
@@ -27,13 +30,13 @@ import Link from 'next/link'
 
     With the above command, a new project will be created using `default` template in the `my_superapp` directory.
 
-    ### Add a sample app
+    ### Create the app
 
-    Lastly, add a sample app to the project using the `add-app` command:
+    Lastly, add a sample app to the project using the `create-app` command:
 
     ```shell
     cd my_superapp
-    django_superapp add-app --app-template sample_app
+    django_superapp create-app --app-template sample_app
     ```
 
 ### Start the server

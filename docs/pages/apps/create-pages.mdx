@@ -1,0 +1,79 @@
+import {
+    Steps
+} from "nextra/components";
+
+# Create Pages
+
+If you want to create a new page in your app, you can follow the steps below.
+
+<Steps>
+    ### Create a View
+    ```py filename="superapp/apps/<app_name>/views.py"
+    class CustomPageView(PermissionRequiredMixin,View):
+        permission_required = ['app.can_view_custom_page']
+
+        def get(self, request, context, **kwargs):
+            # Your custom logic goes here
+            context = {
+                **context,
+                'message': 'This is a custom page!',
+            }
+            return render(request, 'app/custom_page.html', context)
+    ```
+
+    ### Create template
+    ```html filename="superapp/apps/<app_name>/templates/custom_page.html"
+    {% extends 'unfold/layouts/base_simple.html' %}
+
+    {% block custom_breadcrumbs %}
+    {% include 'unfold/helpers/breadcrumb_item.html' with link='' name='Custom Page' %}
+    {% endblock %}
+
+    {% block content %}
+    Hello world: {{message}}
+    {% endblock %}
+    ```
+
+    ### Update URL patterns
+    ```py filename="superapp/apps/<app_name>/urls.py"
+    from superapp.apps.sample_app.views import CustomPageView
+    from django.urls import path
+
+    def extend_superapp_urlpatterns(main_urlpatterns):
+        pass
+
+    def extend_superapp_admin_urlpatterns(main_admin_urlpatterns):
+        main_admin_urlpatterns += [
+            path("custom_page", CustomPageView, name="custom_page"),
+        ]
+    ```
+
+    ### Add Navigation Link
+
+    ```py filename="superapp/apps/admin_portal/settings.py"
+    from django.utils.translation import gettext_lazy as _
+    from django.urls import reverse_lazy
+
+
+    def extend_superapp_settings(main_settings):
+        # ...
+        main_settings['UNFOLD']['SIDEBAR'] = {
+        # ...
+            "navigation": [
+                {
+                    "title": _("Navigation"),
+                    # ...
+                    "items": [
+                    {
+                        "title": _("Custom Page"),
+                        "icon": "your_icon_here", # Icon from https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:custom_page"), # add url pattern here
+                    },
+                    ]
+                }
+            ]
+        }
+    ```
+</Steps>
+
+

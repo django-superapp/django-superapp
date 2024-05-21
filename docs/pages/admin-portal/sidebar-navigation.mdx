@@ -1,0 +1,56 @@
+import {FileTree, Steps} from 'nextra/components'
+import Image from 'next/image'
+
+# Sidebar Navigation
+
+### Instructions
+<Steps>
+    ### Find URL Pattern Name
+    ```shell
+    python manage.py list_all_urls_patterns
+
+    # Sample output:
+    # ^portal/^authentication/user/<id>/password/   (name=auth_user_password_change)
+    # ^portal/^authentication/user/process_import/   (name=authentication_user_process_import)
+    # ^portal/^authentication/user/import/   (name=authentication_user_import)
+    # ^portal/^authentication/user/export/   (name=authentication_user_export)
+    # ^portal/^authentication/user/   (name=authentication_user_changelist)
+    # ^portal/^authentication/user/add/   (name=authentication_user_add)
+    ```
+    Usually, you will find the urlpattern name in the format `app_<modelname>_changelist`.
+
+    ### Configure Sidebar Navigation
+    Obs. Make sure to append `admin:` as prefix for urls registered as admin_urlpattern.
+
+    ```py filename="superapp/apps/admin_portal/settings.py"
+    from django.utils.translation import gettext_lazy as _
+    from django.urls import reverse_lazy
+
+
+    def extend_superapp_settings(main_settings):
+        # ...
+        main_settings['UNFOLD']['SIDEBAR'] = {
+            "show_search": False,
+            "show_all_applications": True,
+            "navigation": [
+                {
+                    "title": _("Navigation"),
+                    "icon": "dashboard",
+                    "items": [
+                    {
+                        "title": _("Your Title Here"),
+                        "icon": "your_icon_here", # Icon from https://fonts.google.com/icons
+                        "link": reverse_lazy("app_<modelname>_changelist"), # add url pattern here
+                        "permission": lambda request: request.user.has_perm('app.view_<modelname>'),
+                    },
+                    ]
+                }
+            ]
+        }
+    ```
+</Steps>
+
+
+### Useful Resources
+
+- [Unfold Settings](https://github.com/unfoldadmin/django-unfold?tab=readme-ov-file#available-settingspy-options)
