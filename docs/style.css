@@ -53,3 +53,11 @@ code.text-\[\.9em\] {
     display: none;
   }
 }
+.logo {
+  fill: #020D37;
+}
+@media (prefers-color-scheme: dark) {
+  .logo {
+    fill: #FFFFFF; /* Change this to the desired color for dark mode */
+  }
+}
