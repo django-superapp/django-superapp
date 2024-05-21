@@ -1,7 +1,7 @@
 import os
 import click
 import requests
-from copier import run_copy
+from copier import run_copy, run_update
 from pydantic import ValidationError
 
 from django_superapp.types import SuperAppTemplate
@@ -45,13 +45,27 @@ def create_project(project_template, target_directory):
     """Bootstrap a project into target directory."""
 
     # Get the chosen project details
-    project_template = superapp_templates.projects[project_template]
+    project_template_obj = superapp_templates.projects[project_template]
 
     run_copy(
-        project_template.repo,
+        project_template_obj.repo,
         str(target_directory),
-        vcs_ref=project_template.branch,
-        **(project_template.kwargs or {}),
+        vcs_ref=project_template_obj.branch,
+        data={
+            'project_template': project_template,
+            'project_template_obj': project_template_obj,
+        },
+        **(project_template_obj.kwargs or {}),
+    )
+
+
+@cli.command()
+@click.argument('target_directory')
+def update_project(target_directory):
+    """Update a project with remote changes."""
+
+    run_update(
+        str(target_directory),
     )
 
 
