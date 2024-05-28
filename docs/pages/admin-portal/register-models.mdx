@@ -2,7 +2,7 @@ import { Steps } from 'nextra/components'
 
 # Register Models
 
-Permissions allow you to restrict access to certain parts of the admin portal. This is useful when you have multiple types of users and want to restrict access to certain parts of the application
+If you want to create a new model in the SuperApp admin portal, you need to register the model with the admin site. This will allow you to view, add, edit, and delete instances of the model in the admin portal.
 
 ## Instructions
 <Steps>
@@ -12,9 +12,16 @@ Permissions allow you to restrict access to certain parts of the admin portal. T
 class SampleModelAdmin(SuperAppModelAdmin):
     pass
 ```
-### Add Sidebar Navigation Link
-    Please follow the [sidebar navigation](/docs/admin-portal/sidebar-navigation) guide to add a link to the model in the sidebar.
 
+### Create Migrations
+```shell
+docker-compose exec web python3 manage.py makemigrations
+```
+
+### Apply Migrations
+```shell
+docker-compose exec web python3 manage.py migrate
+```
 ### Configure the ModelAdmin
      You can display specific fields in the list view of the model by using the `list_display` attribute in the `ModelAdmin` class.
 ```py filename="superapp/apps/<app_name>/admin.py"
@@ -22,6 +29,11 @@ class SampleModelAdmin(SuperAppModelAdmin):
 class SampleModelAdmin(SuperAppModelAdmin):
     list_display = ('username', 'comment')
 ```
+
+### Add Sidebar Navigation Link
+    Please follow the [sidebar navigation](/admin-portal/sidebar-navigation) guide to add a link to the model in the sidebar.
+
+
 </Steps>
 
 ### Useful Resources

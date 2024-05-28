@@ -17,7 +17,7 @@ import Image from 'next/image'
     using `pipx`:
 
     ```shell
-    pipx install django_superapp
+    pipx install django_superapp --force
     ```
 
     ### Generate the Project
@@ -32,11 +32,11 @@ import Image from 'next/image'
 
     ### Create the app
 
-    Lastly, add a sample app to the project using the `create-app` command:
+    Lastly, add a sample app to the project using the `add-app` command:
 
     ```shell
     cd my_superapp
-    django_superapp create-app --app-template sample_app
+    django_superapp add-app --app-template sample_app
     ```
 
 ### Start the server
@@ -51,6 +51,14 @@ import Image from 'next/image'
 
     The above command will start the development server and you can access the project at [http://localhost:8080](http://localhost:8080).
 
+
+### Apply migrations
+
+    To apply migrations, run the following command:
+
+    ```shell
+    docker-compose exec web python3 manage.py migrate;
+    ```
 
 ### Create a superuser
 

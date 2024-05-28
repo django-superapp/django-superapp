@@ -7,7 +7,7 @@ import Image from 'next/image'
 <Steps>
     ### Find URL Pattern Name
     ```shell
-    python manage.py list_all_urls_patterns
+    docker-compose exec web python3 manage.py list_all_urls_patterns
 
     # Sample output:
     # ^portal/^authentication/user/<id>/password/   (name=auth_user_password_change)
@@ -35,12 +35,12 @@ import Image from 'next/image'
             "navigation": [
                 {
                     "title": _("Navigation"),
-                    "icon": "dashboard",
+                    "icon": "dashboard",  # Icons from https://fonts.google.com/icons
                     "items": [
                     {
                         "title": _("Your Title Here"),
-                        "icon": "your_icon_here", # Icon from https://fonts.google.com/icons
-                        "link": reverse_lazy("app_<modelname>_changelist"), # add url pattern here
+                        "icon": "your_icon_here",  # Icons from https://fonts.google.com/icons
+                        "link": reverse_lazy("admin:app_<modelname>_changelist"), # add url pattern here
                         "permission": lambda request: request.user.has_perm('app.view_<modelname>'),
                     },
                     ]
