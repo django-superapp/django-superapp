@@ -13,8 +13,10 @@ def extend_superapp_urlpatterns(main_urlpatterns, package):
         try:
             urls_module = importlib.import_module(submodule_name)
         except ModuleNotFoundError as e:
-            logger.warning(e)
-            continue
+            if f"No module named '{submodule_name}'" in str(e):
+                logger.warning(e)
+                continue
+            raise e
 
         if hasattr(urls_module, "extend_superapp_urlpatterns"):
             urls_module.extend_superapp_urlpatterns(main_urlpatterns)
@@ -27,8 +29,10 @@ def extend_superapp_admin_urlpatterns(main_admin_urlpatterns, package):
         try:
             urls_module = importlib.import_module(submodule_name)
         except ModuleNotFoundError as e:
-            logger.warning(e)
-            continue
+            if f"No module named '{submodule_name}'" in str(e):
+                logger.warning(e)
+                continue
+            raise e
 
         if hasattr(urls_module, "extend_superapp_admin_urlpatterns"):
             urls_module.extend_superapp_admin_urlpatterns(main_admin_urlpatterns)
