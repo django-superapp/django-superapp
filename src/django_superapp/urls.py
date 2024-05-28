@@ -1,7 +1,10 @@
 import importlib
+import logging
 import pkgutil
 
 from django.urls import path
+
+logger = logging.getLogger(__name__)
 
 def extend_superapp_urlpatterns(main_urlpatterns, package):
     for importer, modname, ispkg in pkgutil.iter_modules(package.__path__):
@@ -9,8 +12,8 @@ def extend_superapp_urlpatterns(main_urlpatterns, package):
 
         try:
             urls_module = importlib.import_module(submodule_name)
-        except ModuleNotFoundError:
-            # TODO: when the submodule has a not found exception, we shouldn't raise this exception
+        except ModuleNotFoundError as e:
+            logger.warning(e)
             continue
 
         if hasattr(urls_module, "extend_superapp_urlpatterns"):
@@ -23,7 +26,8 @@ def extend_superapp_admin_urlpatterns(main_admin_urlpatterns, package):
 
         try:
             urls_module = importlib.import_module(submodule_name)
-        except ModuleNotFoundError:
+        except ModuleNotFoundError as e:
+            logger.warning(e)
             continue
 
         if hasattr(urls_module, "extend_superapp_admin_urlpatterns"):

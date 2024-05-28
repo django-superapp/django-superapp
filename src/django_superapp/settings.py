@@ -1,9 +1,12 @@
 import importlib
+import logging
 import pkgutil
 
 from django.urls import reverse_lazy
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
+
+logger = logging.getLogger(__name__)
 
 
 def extend_superapp_settings(main_settings, package):
@@ -12,7 +15,8 @@ def extend_superapp_settings(main_settings, package):
 
         try:
             settings_module = importlib.import_module(submodule_name)
-        except ModuleNotFoundError:
+        except ModuleNotFoundError as e:
+            logger.warning(e)
             continue
 
         if hasattr(settings_module, "extend_superapp_settings"):
@@ -25,14 +29,14 @@ def extend_with_superapp_settings(main_settings, superapp_apps):
         'LOGIN_REDIRECT_URL': reverse_lazy("admin:index"),
     })
     main_settings['INSTALLED_APPS'] = [
-        'admin_confirm',
-        'unfold',
-        "unfold.contrib.filters",
-        "unfold.contrib.import_export",
-        "unfold.contrib.guardian",
-        "unfold.contrib.simple_history",
-        "unfold.contrib.forms",
-    ] + main_settings['INSTALLED_APPS']
+                                          'admin_confirm',
+                                          'unfold',
+                                          "unfold.contrib.filters",
+                                          "unfold.contrib.import_export",
+                                          "unfold.contrib.guardian",
+                                          "unfold.contrib.simple_history",
+                                          "unfold.contrib.forms",
+                                      ] + main_settings['INSTALLED_APPS']
 
     main_settings['UNFOLD'] = {
         "SITE_HEADER": _("SuperApp Demo"),
