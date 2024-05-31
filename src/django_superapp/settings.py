@@ -17,7 +17,6 @@ def extend_superapp_settings(main_settings, package):
             settings_module = importlib.import_module(submodule_name)
         except ModuleNotFoundError as e:
             if f"No module named '{submodule_name}'" in str(e):
-                logger.warning(e)
                 continue
             raise e
 

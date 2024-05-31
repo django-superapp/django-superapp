@@ -14,7 +14,6 @@ def extend_superapp_urlpatterns(main_urlpatterns, package):
             urls_module = importlib.import_module(submodule_name)
         except ModuleNotFoundError as e:
             if f"No module named '{submodule_name}'" in str(e):
-                logger.warning(e)
                 continue
             raise e
 
@@ -30,7 +29,6 @@ def extend_superapp_admin_urlpatterns(main_admin_urlpatterns, package):
             urls_module = importlib.import_module(submodule_name)
         except ModuleNotFoundError as e:
             if f"No module named '{submodule_name}'" in str(e):
-                logger.warning(e)
                 continue
             raise e
 
