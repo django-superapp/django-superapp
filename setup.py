@@ -22,7 +22,7 @@ setup(
     },
     install_requires=[
         "Django >= 5.0.0",
-        "django-unfold >= 0.22.0",
+        "django-unfold >= 0.30.0",
         "django-svelte-jsoneditor >= 0.4.2",
         "django-import-export >= 4.0.3",
         "django-admin-confirm >= 1.0.0",
