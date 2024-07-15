@@ -1,0 +1,32 @@
+
+
+## Why SuperApp?
+SuperApp is better way to organize your Django projects by splitting them into multiple individual apps. Each app has its own `settings.py` and `urls.py` files, which will be imported automatically by the system.
+
+## `superapp/apps/<app_name>/settings.py`
+When an app is included in your project, the system will execute `extend_superapp_settings` to update the main settings with the configurations defined in the app.
+
+```py filename="superapp/apps/<app_name>/settings.py"
+def extend_superapp_settings(main_settings):
+    # Add the app to the installed apps
+    main_settings['INSTALLED_APPS'] += [
+        'superapp.apps.sample_app',
+    ]
+```
+
+## `superapp/apps/<app_name>/urls.py`
+When an app is included in your project, the system will execute `extend_superapp_urlpatterns` extend the main URL patterns of a Django SuperApp with additional routes.
+
+```py filename="superapp/apps/<app_name>/urls.py"
+from django.urls import path
+
+from superapp.apps.sample_app.views import hello_world
+
+
+def extend_superapp_urlpatterns(main_urlpatterns):
+    # Add new URL patterns.
+    main_urlpatterns += [
+        path('hello_world/', hello_world),
+    ]
+
+```
