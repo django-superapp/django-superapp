@@ -1,0 +1,10 @@
+{
+  "admin-portal": "Admin Portal",
+  "authentication": "Authentication",
+  "celery-tasks": "Celery Tasks",
+  "submit-your-app": {
+    "title": "Submit your app ↗",
+    "href": "https://github.com/django-superapp/django-superapp/discussions/new?category=new-community-apps",
+    "newWindow": true
+  }
+}

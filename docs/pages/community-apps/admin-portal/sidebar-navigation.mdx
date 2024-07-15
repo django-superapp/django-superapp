@@ -1,11 +1,13 @@
-import {FileTree, Steps} from 'nextra/components'
+import {Steps} from 'nextra/components'
 import Image from 'next/image'
 
 # Sidebar Navigation
 
+<Image src="/assets/docs/admin-portal/sidebar-navigation.png" alt="Admin Portal Sidebar Navigation" width={512} height={512} className={'mt-3'} />
+
 ### Instructions
 <Steps>
-    ### Find URL Pattern Name
+    ### Identify the URL Pattern
     ```shell
     docker-compose exec web python3 manage.py list_all_urls_patterns
 

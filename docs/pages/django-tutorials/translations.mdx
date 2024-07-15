@@ -7,24 +7,28 @@ If you want to add translations to your app, you can do so by following the step
 <Steps>
     ### Configure Localization
     Add the following to your `settings.py` file:
-    ```py filename="superapp/settings.py"
-    ######################################################################
-    # Localization
-    # Docs: https://docs.djangoproject.com/en/5.0/topics/i18n/translation/
-    ######################################################################
-    LANGUAGE_CODE = "en"
+    ```py filename="superapp/apps/<your_app_name>/settings.py"
+    import os
 
-    TIME_ZONE = "Europe/Berlin"
+    from django.urls import reverse_lazy
+    from django.utils.translation import gettext_lazy as _
 
-    USE_I18N = True
+    def extend_superapp_settings(main_settings):
+        ######################################################################
+        # Localization
+        # Docs: https://docs.djangoproject.com/en/5.0/topics/i18n/translation/
+        ######################################################################
 
-    USE_TZ = True
+        main_settings['LANGUAGE_CODE'] = "en"
+        main_settings['TIME_ZONE'] = "Europe/Berlin"
+        main_settings['USE_I18N'] = True
+        main_settings['USE_TZ'] = True
+        main_settings['LANGUAGES'] = (
+            ("en", _("English")),
+            ("de", _("German")),
+        )
+        main_settings['LOCALE_PATHS'] = [os.path.join(BASE_DIR, 'locale')]
 
-    LANGUAGES = (
-    ("en", _("English")),
-    ("de", _("German")),
-    )
-    LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
     ```
 
     ### Generate locale files

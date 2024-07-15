@@ -1,0 +1,8 @@
+{
+  "basic-project": "Start from scratch",
+  "submit-your-project": {
+    "title": "Submit your project ↗",
+    "href": "https://github.com/django-superapp/django-superapp/discussions/new?category=new-community-projects",
+    "newWindow": true
+  }
+}

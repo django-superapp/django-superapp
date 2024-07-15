@@ -1,37 +1,4 @@
-import { FileTree } from 'nextra/components'
-import Image from 'next/image'
-
-# Admin Portal Configuration
-
-The Admin Portal is a Django app that provides an interface for managing SuperApp  by extending the functionalities of [django-unfold](https://github.com/unfoldadmin/django-unfold).
-
-<Image src="/assets/docs/admin-portal/admin-portal.svg" alt="Admin Portal Screenshot" width={1024} height={1024} className={'mt-3'} />
-
-### File Structure
-
-<FileTree>
-    <FileTree.Folder name="superapp" defaultOpen>
-        <FileTree.Folder name="apps" defaultOpen>
-            <FileTree.Folder name="admin_portal" defaultOpen>
-                <FileTree.Folder name="static" defaultOpen>
-                    <FileTree.Folder name="css" defaultOpen>
-                        <FileTree.File name="styles.css" />
-                    </FileTree.Folder>
-                </FileTree.Folder>
-                <FileTree.Folder name="tailwind" defaultOpen>
-                    <FileTree.File name="styles.css" />
-                    <FileTree.File name="tailwind.config.js" />
-                    <FileTree.File name="package.json" />
-                </FileTree.Folder>
-                <FileTree.File name="settings.py" />
-                <FileTree.File name="urls.py" />
-            </FileTree.Folder>
-        </FileTree.Folder>
-    </FileTree.Folder>
-    <FileTree.File name="manage.py" />
-</FileTree>
-
-### Configuration
+# Configuration
 ```py filename="superapp/apps/admin_portal/settings.py"
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _

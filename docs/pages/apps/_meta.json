@@ -1,4 +1,5 @@
 {
-  "create-an-app": "Create an App",
-  "update-an-app": "Update an App"
+  "bootstrap-an-app":  "Bootstrap an App",
+  "sync-remote-changes":  "Sync Remote Changes"
 }
+

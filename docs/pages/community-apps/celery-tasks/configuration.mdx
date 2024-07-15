@@ -1,0 +1,46 @@
+# Configuration
+```py filename="superapp/apps/tasks/settings.py"
+import os
+
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+
+
+def extend_superapp_settings(main_settings):
+    ######################################################################
+    # Celery
+    # Docs: https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html
+    ######################################################################
+    main_settings.update({
+        'CELERY_BROKER_URL': os.environ.get('REDIS_BROKER_URL'),
+        'CELERY_ACCEPT_CONTENT': ['application/json'],
+        'CELERY_TASK_SERIALIZER': 'json',
+        'CELERY_RESULT_SERIALIZER': 'json',
+        'CELERY_TASK_TRACK_STARTED': True,
+        'CELERY_RESULT_BACKEND': 'django-db',
+        'CELERY_CACHE_BACKEND': 'django-cache',
+        'CELERY_RESULT_EXTENDED': True,
+        'CELERY_TASK_TIME_LIMIT': 60 * 60,  # 1h
+    })
+
+    ######################################################################
+    # Celery Beat
+    # Docs: https://django-celery-beat.readthedocs.io/en/latest/
+    ######################################################################
+    main_settings.update({
+        'CELERY_BEAT_SCHEDULER': 'django_celery_beat.schedulers:DatabaseScheduler',
+        'DJANGO_CELERY_BEAT_TZ_AWARE': False,
+    })
+
+    main_settings['CACHES'] = {
+        'default': {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.environ.get('REDIS_BROKER_URL'),
+        }
+    }
+
+```
+
+### Useful Resources
+
+- [Django Celery](https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html)

@@ -89,9 +89,9 @@ const config: DocsThemeConfig = {
         labels: 'feedback'
     },
     sidebar: {
-        titleComponent({title, type}) {
+        titleComponent({title, type, }) {
             if (type === 'separator') {
-                return <span className="cursor-default">{title}</span>
+                return <span className="nx-text-md nx-font-semibold nx-text-gray-900 first:nx-mt-0 dark:nx-text-gray-100">{title}</span>
             }
             return <>{title}</>
         },

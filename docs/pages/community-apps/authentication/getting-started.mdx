@@ -1,0 +1,21 @@
+import { Steps } from 'nextra/components'
+import Image from 'next/image'
+
+# Authentication
+
+<Image src="/assets/docs/authentication/authentication.png" alt="Authentication Screenshot" width={1024} height={1024} className={'mt-3'} />
+
+## Getting Started
+<Steps>
+### Setup the project
+    Please setup the project by following the instructions from the [Getting Started](/) guide.
+
+### Bootstrap the Admin Portal App
+```bash
+cd superapp/apps;
+django_superapp bootstrap-app \
+--template-repo https://github.com/django-superapp/django-superapp-authentication ./authentication;
+cd ../../;
+```
+</Steps>
+

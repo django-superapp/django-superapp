@@ -7,14 +7,22 @@
     "title": "Project Structure",
     "href": ""
   },
-  "-- Apps": {
-    "type": "separator",
-    "title": "Tutorials"
+  "apps": {
+    "title": "Apps",
+    "type": "separator"
   },
-  "admin-portal": "Admin Portal",
-  "apps": "Apps",
-  "translations": "Translations",
-  "multi-db": "Multi-DB",
+  "community-projects": {
+    "title": "Community Projects",
+    "type": "separator"
+  },
+  "community-apps": {
+    "title": "Community Apps",
+    "type": "separator"
+  },
+  "django-tutorials": {
+    "title": "Django Tutorials",
+    "type": "separator"
+  },
   "-- More": {
     "type": "separator",
     "title": "More"
@@ -22,6 +30,15 @@
   "pypi-link": {
     "title": "PyPi Package ↗",
     "href": "https://pypi.org/project/django-superapp/",
+    "newWindow": true
+  },
+  "-- Support": {
+    "type": "separator",
+    "title": "Support"
+  },
+  "ask-a-question": {
+    "title": "Submit your question",
+    "href": "https://github.com/django-superapp/django-superapp/discussions/new?category=q-a",
     "newWindow": true
   },
 
