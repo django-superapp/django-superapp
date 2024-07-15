@@ -1,4 +1,6 @@
 {
+  "create-your-app":  "Create your App",
+  "sync-remote-changes":  "Sync Remote Changes",
   "admin-portal": "Admin Portal",
   "authentication": "Authentication",
   "celery-tasks": "Celery Tasks",

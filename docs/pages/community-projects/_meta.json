@@ -1,5 +1,7 @@
 {
   "basic-project": "Start from scratch",
+  "sync-remote-changes": "Sync remote changes",
+  "create-your-project": "Create your project",
   "submit-your-project": {
     "title": "Submit your project ↗",
     "href": "https://github.com/django-superapp/django-superapp/discussions/new?category=new-community-projects",

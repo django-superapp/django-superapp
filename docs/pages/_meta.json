@@ -7,10 +7,6 @@
     "title": "Why SuperApp",
     "href": ""
   },
-  "apps": {
-    "title": "Apps",
-    "type": "separator"
-  },
   "community-projects": {
     "title": "Community Projects",
     "type": "separator"
