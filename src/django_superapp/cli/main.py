@@ -42,21 +42,17 @@ def bootstrap_project(template_repo, target_directory):
 @cli.command()
 @click.option(
     '--template-repo',
-    default='https://github.com/django-superapp/django-superapp-default-project',
     callback=validate_github_repo,
     help='SuperApp GitHub repository URL.'
 )
-@click.argument('target_directory', required=False)
-def bootstrap_app(template_repo, target_directory=None):
+@click.argument('target_directory')
+def bootstrap_app(template_repo, target_directory):
     """Create an app inside the project."""
     current_directory = os.getcwd()
     if not current_directory.endswith("superapp/apps"):
         raise click.ClickException(
             "You must run this command inside the 'superapp/apps' directory."
         )
-
-    if not target_directory:
-        target_directory = template_repo.split("/")[-1]
 
     run_copy(
         template_repo,

@@ -22,7 +22,7 @@ import Image from 'next/image'
 
     ### Generate the Project
 
-    Next, create a new SuperApp project using the `create-project` command
+    Next, create a new SuperApp project using the `bootstrap-project` command
 
     ```shell
     django_superapp bootstrap-project \
@@ -32,16 +32,26 @@ import Image from 'next/image'
 
     With the above command, a new project will be created using `default` template in the `my_superapp` directory.
 
-    ### Create the app
-
-    Lastly, add a sample app to the project using the `add-app` command:
+    ### Add Admin Portal App
+    Next, add the `admin-portal` app to the project using the `bootstrap-app` command
 
     ```shell
     cd my_superapp;
     cd superapp/apps;
     django_superapp bootstrap-app \
-        --template-repo https://github.com/django-superapp/django-superapp-sample-app \
-        ./my_superapp;
+        --template-repo https://github.com/django-superapp/django-superapp-admin-portal ./admin-portal;
+    cd ../../;
+    ```
+
+    ### Add Authentication App
+    Next, add the `authentication` app to the project using the `bootstrap-app` command
+
+    ```shell
+    cd my_superapp;
+    cd superapp/apps;
+    django_superapp bootstrap-app \
+        --template-repo https://github.com/django-superapp/django-superapp-authentication ./authentication;
+    cd ../../;
     ```
 
 ### Start the server

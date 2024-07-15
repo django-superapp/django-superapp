@@ -5,12 +5,41 @@ SuperApp is a framework on top of Django, designed to accelerate the development
 
 ### Getting Started
 ```bash
+# Install django_superapp
 pipx install django_superapp
-django_superapp create-project --project-template default ./my_superapp
-cd my_superapp
-django_superapp create-app --app-template sample_app
+
+# Setup the project
+django_superapp bootstrap-project \
+        --template-repo https://github.com/django-superapp/django-superapp-default-project \
+        ./my_superapp;
+cd my_superapp;
+
+# Setup Admin Portal
+cd superapp/apps;
+django_superapp bootstrap-app \
+    --template-repo https://github.com/django-superapp/django-superapp-admin-portal \
+    ./admin_portal;
+cd ../../;
+
+# Setup Authentication
+cd superapp/apps;
+django_superapp bootstrap-app \
+    --template-repo https://github.com/django-superapp/django-superapp-authentication \
+    ./authentication;
+cd ../../;
+
+# Start the project
 make setup-sample-env
 make start-docker
+
+# Apply migrations
+docker-compose exec web python3 manage.py migrate;
+
+# Create superuser
+docker-compose exec web python3 manage.py createsuperuser
+
+# Open the browser
+http://localhost:8000/
 ```
 
 ### Documentation
