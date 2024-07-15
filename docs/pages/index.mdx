@@ -25,7 +25,9 @@ import Image from 'next/image'
     Next, create a new SuperApp project using the `create-project` command
 
     ```shell
-    django_superapp create-project --project-template default ./my_superapp
+    django_superapp bootstrap-project \
+        --template-repo https://github.com/django-superapp/django-superapp-default-project \
+        ./my_superapp;
     ```
 
     With the above command, a new project will be created using `default` template in the `my_superapp` directory.
@@ -35,8 +37,11 @@ import Image from 'next/image'
     Lastly, add a sample app to the project using the `add-app` command:
 
     ```shell
-    cd my_superapp
-    django_superapp add-app --app-template sample_app
+    cd my_superapp;
+    cd superapp/apps;
+    django_superapp bootstrap-app \
+        --template-repo https://github.com/django-superapp/django-superapp-sample-app \
+        ./my_superapp;
     ```
 
 ### Start the server

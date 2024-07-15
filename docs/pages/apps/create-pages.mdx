@@ -44,7 +44,11 @@ If you want to create a new page in your app, you can follow the steps below.
 
     def extend_superapp_admin_urlpatterns(main_admin_urlpatterns):
         main_admin_urlpatterns += [
-            path("custom_page", CustomPageView, name="custom_page"),
+            {
+                "path": "",
+                "view": AdaPortalHomePage,
+                "name": "ada_portal_home",
+            },
         ]
     ```
 

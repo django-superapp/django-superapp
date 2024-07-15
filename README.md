@@ -18,6 +18,7 @@ For a more detailed documentation, visit [https://django-superapp.bringes.io](ht
 
 ### Development
 ```bash
+source venv/bin/activate
 make install-requirements
 make install
 make release

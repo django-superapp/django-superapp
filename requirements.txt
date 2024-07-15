@@ -1,3 +1,6 @@
 setuptools==69.5.1
 wheel==0.43.0
 twine==5.1.0
+Django>=5.0.0
+click>=8.1.7
+copier>=9.2.0

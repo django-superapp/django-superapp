@@ -22,14 +22,8 @@ setup(
     },
     install_requires=[
         "Django >= 5.0.0",
-        "django-unfold >= 0.30.0",
-        "django-svelte-jsoneditor >= 0.4.2",
-        "django-import-export >= 4.0.3",
-        "django-admin-confirm >= 1.0.0",
         "click >= 8.1.7",
         "copier >= 9.2.0",
-        "requests >= 2.31.0",
-        "pydantic >= 2.7.1",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",

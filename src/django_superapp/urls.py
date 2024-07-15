@@ -2,8 +2,6 @@ import importlib
 import logging
 import pkgutil
 
-from django.urls import path
-
 logger = logging.getLogger(__name__)
 
 def extend_superapp_urlpatterns(main_urlpatterns, package):
@@ -40,9 +38,5 @@ main_admin_urlpatterns = []
 
 
 def extend_with_superapp_urlpatterns(main_urlpatterns, superapp_apps):
-    from django_superapp.sites import superapp_admin_site
-    main_urlpatterns += [
-        path("portal/", superapp_admin_site.urls),
-    ]
     extend_superapp_urlpatterns(main_urlpatterns, superapp_apps)
     extend_superapp_admin_urlpatterns(main_admin_urlpatterns, superapp_apps)

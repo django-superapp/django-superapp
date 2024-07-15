@@ -1,24 +1,19 @@
 import os
+import re
+
 import click
-import requests
 from copier import run_copy, run_update
-from pydantic import ValidationError
-
-from django_superapp.types import SuperAppTemplate
 
 
-def get_superapp_templates() -> SuperAppTemplate:
-    url = "https://raw.githubusercontent.com/django-superapp/django-superapp/main/superapp_templates.json"
-    response = requests.get(url)
-    response.raise_for_status()
-    try:
-        return SuperAppTemplate.parse_obj(response.json())
-    except ValidationError as e:
-        print("Error parsing JSON:", e)
-        raise
+def validate_github_repo(ctx, param, value):
+    # Regular expression for GitHub repository URLs
+    github_repo_regex = r'^https:\/\/github\.com\/[a-zA-Z0-9\-_]+\/[a-zA-Z0-9\-_]+$'
 
+    # Check if the value matches the regex
+    if not re.match(github_repo_regex, value):
+        raise click.BadParameter('The repository URL must be a valid GitHub repository URL.')
 
-superapp_templates = get_superapp_templates()
+    return value
 
 
 @click.group()
@@ -28,88 +23,61 @@ def cli():
 
 @cli.command()
 @click.option(
-    '--project-template',
-    type=click.Choice([
-        project_name for project_name in superapp_templates.projects.keys()
-    ], case_sensitive=False),
-    default=[
-        project_name for project_name in superapp_templates.projects.keys()
-        if superapp_templates.projects[project_name].default
-    ][0],
-    show_default=True,
-    show_choices=True,
-    prompt=True,
+    '--template-repo',
+    default='https://github.com/django-superapp/django-superapp-default-project',
+    callback=validate_github_repo,
+    help='SuperApp GitHub repository URL.'
 )
 @click.argument('target_directory')
-def create_project(project_template, target_directory):
+def bootstrap_project(template_repo, target_directory):
     """Bootstrap a project into target directory."""
 
-    # Get the chosen project details
-    project_template_obj = superapp_templates.projects[project_template]
+    if not target_directory:
+        target_directory = template_repo.split("/")[-1]
 
     run_copy(
-        project_template_obj.repo,
+        template_repo,
         str(target_directory),
-        vcs_ref=project_template_obj.branch,
-        data={
-            'project_template': project_template,
-            'project_template_obj': project_template_obj,
-        },
-        **(project_template_obj.kwargs or {}),
-    )
-
-
-@cli.command()
-@click.argument('target_directory')
-def update_project(target_directory):
-    """Update a project with remote changes."""
-
-    run_update(
-        str(target_directory),
-        overwrite=True,
+        data={'project_name': os.path.basename(target_directory)},
     )
 
 
 @cli.command()
 @click.option(
-    '--app-template',
-    type=click.Choice([
-        slug for slug in superapp_templates.apps.keys()
-    ]),
-    help='Name of the application template to use',
-    show_choices=True,
-    prompt=True,
-
+    '--template-repo',
+    default='https://github.com/django-superapp/django-superapp-default-project',
+    callback=validate_github_repo,
+    help='SuperApp GitHub repository URL.'
 )
-def create_app(app_template):
+@click.argument('target_directory')
+def bootstrap_app(template_repo, target_directory):
     """Create an app inside the project."""
-    target_path = os.path.join("superapp", "apps", app_template)
-
-    if not os.path.exists("superapp/apps"):
+    current_directory = os.getcwd()
+    if not current_directory.endswith("superapp/apps"):
         raise click.ClickException(
-            "The superapp/apps directory does not exist. Make sure you are in the root of the project."
+            "You must run this command inside the 'superapp/apps' directory."
         )
 
-    # Get the chosen project details
-    app_template = superapp_templates.apps[app_template]
+    if not target_directory:
+        target_directory = template_repo.split("/")[-1]
 
     run_copy(
-        app_template.repo,
-        str(target_path),
-        vcs_ref=app_template.branch,
-        **(app_template.kwargs or {}),
+        template_repo,
+        str(target_directory),
+        data={'app_name': os.path.basename(target_directory)},
     )
 
 
 @cli.command()
 @click.argument('target_directory')
-def update_app(target_directory):
-    """Update a project with remote changes."""
+def update(target_directory):
+    """Update the superapp project/app in the target directory with the latest remote changes."""
 
     run_update(
         str(target_directory),
         overwrite=True,
     )
+
 
 if __name__ == '__main__':
     cli()
