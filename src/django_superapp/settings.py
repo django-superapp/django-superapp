@@ -6,7 +6,7 @@ import pkgutil
 logger = logging.getLogger(__name__)
 
 
-def extend_with_superapp_settings(main_settings, superapp_apps):
+def extend_superapp_settings(main_settings, superapp_apps):
     for importer, modname, ispkg in pkgutil.iter_modules(superapp_apps.__path__):
         submodule_name = f"{superapp_apps.__name__}.{modname}.settings"
 

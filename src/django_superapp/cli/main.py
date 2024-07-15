@@ -32,9 +32,6 @@ def cli():
 def bootstrap_project(template_repo, target_directory):
     """Bootstrap a project into target directory."""
 
-    if not target_directory:
-        target_directory = template_repo.split("/")[-1]
-
     run_copy(
         template_repo,
         str(target_directory),
@@ -49,8 +46,8 @@ def bootstrap_project(template_repo, target_directory):
     callback=validate_github_repo,
     help='SuperApp GitHub repository URL.'
 )
-@click.argument('target_directory')
-def bootstrap_app(template_repo, target_directory):
+@click.argument('target_directory', required=False)
+def bootstrap_app(template_repo, target_directory=None):
     """Create an app inside the project."""
     current_directory = os.getcwd()
     if not current_directory.endswith("superapp/apps"):
