@@ -7,7 +7,7 @@
 ### Getting Started
 ```bash
 # Install django_superapp
-pipx install django_superapp
+pipx install django_superapp --force
 
 # Setup the project
 django_superapp bootstrap-project \
