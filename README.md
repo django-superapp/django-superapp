@@ -40,7 +40,7 @@ docker-compose exec web python3 manage.py migrate;
 docker-compose exec web python3 manage.py createsuperuser
 
 # Open the browser
-http://localhost:8000/
+http://localhost:8080/
 ```
 
 ### Documentation
