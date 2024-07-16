@@ -1,7 +1,8 @@
 
 
-## Why SuperApp?
-SuperApp is better way to organize your Django projects by splitting them into multiple individual apps. Each app has its own `settings.py` and `urls.py` files, which will be imported automatically by the system.
+## How it works
+**SuperApp** is extending Django functionality by splitting the projects into multiple individual apps, each app having its own `settings.py` and `urls.py` files, which will be imported automatically by the system.
+
 
 ## `superapp/apps/<app_name>/settings.py`
 When an app is included in your project, the system will execute `extend_superapp_settings` to update the main settings with the configurations defined in the app.

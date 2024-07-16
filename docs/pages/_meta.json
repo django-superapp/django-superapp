@@ -1,11 +1,9 @@
 {
   "index": {
-    "title": "Getting Started",
-    "href": ""
+    "title": "Getting Started"
   },
-  "why-superapp": {
-    "title": "Why SuperApp",
-    "href": ""
+  "how-it-works": {
+    "title": "How it works?"
   },
   "community-projects": {
     "title": "Community Projects",
