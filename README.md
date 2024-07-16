@@ -1,7 +1,7 @@
 # Django SuperApp
 SuperApp is a framework on top of Django, designed to accelerate the development of software projects for startups. It incorporates all the powerful features of Django, plus additional tools to seamlessly integrate various applications.
 
-![django-superapp-demo](https://django-superapp.bringes.io/assets/docs/admin-portal/admin-portal.svg "Django SuperApp")
+![django-superapp-demo](https://django-superapp.bringes.io/assets/docs/admin-portal/admin-portal.png "Django SuperApp")
 
 ### Getting Started
 ```bash
