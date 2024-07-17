@@ -1,8 +1,12 @@
 import os
 import re
+from pathlib import Path
 
 import click
-from copier import run_copy, run_update
+import yaml
+from copier import run_copy, run_update, Worker
+
+from .utils import sync_directories, clone_repo, open_repo_in_github, create_pr, remove_directory_if_exists
 
 
 def validate_github_repo(ctx, param, value):
@@ -63,13 +67,60 @@ def bootstrap_app(template_repo, target_directory):
 
 @cli.command()
 @click.argument('target_directory')
-def update(target_directory):
-    """Update the superapp project/app in the target directory with the latest remote changes."""
+def pull_template(target_directory):
+    """Update the local template with the remote changes."""
 
     run_update(
         str(target_directory),
         overwrite=True,
     )
+
+
+@cli.command()
+@click.argument('target_directory')
+def push_template(target_directory):
+    """Push the local changes to the remote template."""
+    fork_directory = f'{target_directory}/superapp_fork'
+    try:
+        with Worker(dst_path=Path(target_directory)) as worker:
+            repo_url = worker.subproject.last_answers.get('_src_path')
+
+        try:
+            with open(f"{target_directory}/copier.yml", 'r') as file:
+                copier_configuration = yaml.safe_load(file)
+        except OSError:
+            copier_configuration = {}
+
+        if not repo_url:
+            raise click.ClickException(
+                "The target directory does not have a remote repository configured."
+            )
+
+        click.echo("Forking the repository in superapp_fork directory...")
+        clone_repo(
+            repo_url=repo_url,
+            target_directory=target_directory,
+            fork_directory=fork_directory
+        )
+
+        click.echo("Syncing the directories...")
+        sync_directories(
+            src=target_directory,
+            dst=fork_directory,
+            copier_configuration=copier_configuration,
+        )
+
+        open_repo_in_github(fork_directory)
+        click.secho("Do not commit sensitive information to the remote repository!", fg='yellow', bold=True)
+        if not click.confirm('Have you pushed your commits to the remote repository?'):
+            raise click.Abort()
+
+        create_pr(fork_directory)
+    except Exception as e:
+        raise e
+    finally:
+        click.echo("Cleaning up...")
+        remove_directory_if_exists(fork_directory)
 
 
 if __name__ == '__main__':
