@@ -5,6 +5,14 @@
   "how-it-works": {
     "title": "How it works?"
   },
+  "projects": {
+    "title": "Projects",
+    "type": "separator"
+  },
+  "apps": {
+    "title": "Apps",
+    "type": "separator"
+  },
   "community-projects": {
     "title": "Community Projects",
     "type": "separator"

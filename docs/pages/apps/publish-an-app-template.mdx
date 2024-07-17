@@ -1,0 +1,29 @@
+import { Steps } from 'nextra/components'
+
+# Publish an App Template
+
+If you would like to publish a new app template for the SuperApp community, you can follow the steps below.
+
+<Steps>
+    ### Clone Default Template
+    ```shell
+    git clone https://github.com/django-superapp/django-superapp-sample-app django-superapp-my-own-app
+    cd django-superapp-my-own-app
+    git remote add origin https://github.com/<my-organization>/django-superapp-my-own-app
+    ```
+
+    ### Push the changes to Github
+    Commit your app to a new Github Repository and push it to Github.
+
+    ### Submit the app on SuperApp Marketplace
+    Submit your app to SuperApp Community by creating a new discussion [here](https://github.com/django-superapp/django-superapp/discussions/new?category=new-community-apps) with a link to your repository.
+
+    ### Bootstrap your project
+    ```shell
+    cd superapp/apps;
+    django_superapp bootstrap-app \
+    --template-repo https://github.com/<my-organization>/django-superapp-my-own-app ./my_own_app;
+    cd ../../;
+    ```
+</Steps>
+

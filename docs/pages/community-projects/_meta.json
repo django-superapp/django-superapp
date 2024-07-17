@@ -1,10 +1,8 @@
 {
-  "create-your-project": "Create your Project",
-  "sync-remote-changes": "Sync remote changes",
   "basic-project": "Basic Project",
   "submit-your-project": {
     "title": "Submit your project ↗",
-    "href": "https://github.com/django-superapp/django-superapp/discussions/new?category=new-community-projects",
+    "href": "/projects/publish-a-project-template",
     "newWindow": true
   }
 }
