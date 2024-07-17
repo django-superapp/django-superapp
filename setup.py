@@ -24,6 +24,7 @@ setup(
         "Django >= 5.0.0",
         "click >= 8.1.7",
         "copier >= 9.2.0",
+        "sysrsync >= 1.1.1",
     ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
