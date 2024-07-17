@@ -2,7 +2,7 @@ import { Steps } from 'nextra/components'
 import Image from 'next/image'
 
 # Basic Project
-<Image src="/assets/docs/admin-portal/admin-portal.svg" alt="Admin Portal Screenshot" width={1024} height={1024} className={'mt-3'} />
+<Image src="/assets/docs/admin-portal/basic-project.png" alt="Basic Project Screenshot" width={1024} height={1024} className={'mt-3'} />
 
 
 ## Get Started
@@ -60,7 +60,14 @@ import Image from 'next/image'
     make start-docker
     ```
 
-    The above command will start the development server and you can access the project at [http://localhost:8080](http://localhost:8080).
+
+    ### Setup env variables
+
+    To setup env variables, run the following command:
+
+    ```shell
+    export $(cat .env.local | xargs)
+    ```
 
 
     ### Apply migrations
@@ -78,5 +85,9 @@ import Image from 'next/image'
     ```shell
     docker-compose exec web python3 manage.py createsuperuser
     ```
+
+    ### Open the web interface
+
+    Finally, you can access the project at [http://localhost:8080](http://localhost:8080).
 </Steps>
 

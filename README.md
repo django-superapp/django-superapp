@@ -1,6 +1,5 @@
 # Django SuperApp
-**SuperApp** enhances Django by allowing developers to divide their projects into **multiple independent apps**. Each app can have its own `settings.py` and `urls.py` files, which are automatically imported by the system. This modular approach promotes better organization and scalability of Django projects.
-
+**Superapp** boosts developer efficiency by allowing them to start projects quickly with **pre-built standalone apps**. Each app has its own `settings.py` and `urls.py` files, which are automatically recognized by the system. This modular setup makes Django projects more organized and scalable, saving developers time and effort.
 
 ![django-superapp-demo](https://django-superapp.bringes.io/assets/docs/admin-portal/admin-portal.png "Django SuperApp")
 
@@ -33,13 +32,16 @@ cd ../../;
 make setup-sample-env
 make start-docker
 
+# Setup env variables
+export $(cat .env.local | xargs)
+
 # Apply migrations
 docker-compose exec web python3 manage.py migrate;
 
 # Create superuser
 docker-compose exec web python3 manage.py createsuperuser
 
-# Open the browser
+# Open the web interface
 http://localhost:8080/
 ```
 

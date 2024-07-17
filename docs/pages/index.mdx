@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 # SuperApp
 
-**SuperApp** enhances Django by allowing developers to divide their projects into **multiple independent apps**. Each app can have its own `settings.py` and `urls.py` files, which are automatically imported by the system. This modular approach promotes better organization and scalability of Django projects.
+**Superapp** boosts developer efficiency by allowing them to start projects quickly with **pre-built standalone apps**. Each app has its own `settings.py` and `urls.py` files, which are automatically recognized by the system. This modular setup makes Django projects more organized and scalable, saving developers time and effort.
 
 <Image src="/assets/docs/admin-portal/admin-portal.png" alt="Admin Portal Screenshot" width={1024} height={1024} className={'mt-3'} />
 
@@ -63,7 +63,14 @@ import Image from 'next/image'
     make start-docker
     ```
 
-    The above command will start the development server and you can access the project at [http://localhost:8080](http://localhost:8080).
+
+### Setup env variables
+
+    To setup env variables, run the following command:
+
+    ```shell
+    export $(cat .env.local | xargs)
+    ```
 
 
 ### Apply migrations
@@ -81,5 +88,9 @@ import Image from 'next/image'
     ```shell
     docker-compose exec web python3 manage.py createsuperuser
     ```
+
+### Open the web interface
+
+    Finally, you can access the project at [http://localhost:8080](http://localhost:8080).
 </Steps>
 

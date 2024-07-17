@@ -49,3 +49,6 @@ dist: venv/touchfile clean ## builds source and wheel package
 install: venv/touchfile clean ## install the package to the active Python's site-packages
 	. venv/bin/activate && python setup.py install
 
+uninstall: venv/touchfile clean ## install the package to the active Python's site-packages
+	. venv/bin/activate && pip uninstall django_superapp
+
