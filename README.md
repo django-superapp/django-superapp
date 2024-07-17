@@ -1,12 +1,13 @@
 # Django SuperApp
-SuperApp is a framework on top of Django, designed to accelerate the development of software projects for startups. It incorporates all the powerful features of Django, plus additional tools to seamlessly integrate various applications.
+**SuperApp** enhances Django by allowing developers to divide their projects into **multiple independent apps**. Each app can have its own `settings.py` and `urls.py` files, which are automatically imported by the system. This modular approach promotes better organization and scalability of Django projects.
 
-![django-superapp-demo](https://django-superapp.bringes.io/assets/docs/admin-portal/admin-portal.svg "Django SuperApp")
+
+![django-superapp-demo](https://django-superapp.bringes.io/assets/docs/admin-portal/admin-portal.png "Django SuperApp")
 
 ### Getting Started
 ```bash
 # Install django_superapp
-pipx install django_superapp
+pipx install django_superapp --force
 
 # Setup the project
 django_superapp bootstrap-project \
@@ -39,7 +40,7 @@ docker-compose exec web python3 manage.py migrate;
 docker-compose exec web python3 manage.py createsuperuser
 
 # Open the browser
-http://localhost:8000/
+http://localhost:8080/
 ```
 
 ### Documentation
