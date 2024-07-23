@@ -52,6 +52,7 @@ def sync_directories(src, dst, copier_configuration=None):
         options=['-av', '--delete'],
         exclusions=[
                             ".DS_Store",
+                            "venv",
                             "superapp_fork",
                             ".git",
                             ".copier-answers.yml",
