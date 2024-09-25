@@ -9,6 +9,9 @@ If you want to create a new page in your app, you can follow the steps below.
 <Steps>
     ### Create a View
     ```py filename="superapp/apps/<app_name>/views.py"
+    from django.contrib.auth.mixins import PermissionRequiredMixin
+    from django.views import View
+
     class CustomPageView(PermissionRequiredMixin,View):
         permission_required = ['app.can_view_custom_page']
 
@@ -23,12 +26,14 @@ If you want to create a new page in your app, you can follow the steps below.
 
     ### Create template
     ```html filename="superapp/apps/<app_name>/templates/custom_page.html"
-    {% extends 'unfold/layouts/base_simple.html' %}
-
+    {% extends 'unfold/layouts/base.html' %}
+    {% load i18n unfold %}
+    
     {% block custom_breadcrumbs %}
-    {% include 'unfold/helpers/breadcrumb_item.html' with link='' name='Custom Page' %}
+    {% trans 'Custom Page' as name %}
+    {% include 'unfold/helpers/breadcrumb_item.html' with link=link name=name %}
     {% endblock %}
-
+    
     {% block content %}
     Hello world: {{message}}
     {% endblock %}
@@ -46,8 +51,8 @@ If you want to create a new page in your app, you can follow the steps below.
         main_admin_urlpatterns += [
             {
                 "path": "",
-                "view": AdaPortalHomePage,
-                "name": "ada_portal_home",
+                "view": CustomPageView,
+                "name": "custom_page",
             },
         ]
     ```
