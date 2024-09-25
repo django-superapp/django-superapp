@@ -33,10 +33,11 @@ def extend_superapp_admin_urlpatterns(main_admin_urlpatterns, package):
         if hasattr(urls_module, "extend_superapp_admin_urlpatterns"):
             urls_module.extend_superapp_admin_urlpatterns(main_admin_urlpatterns)
 
-
+# The below variable is deprecated and will be removed soon as the variable will be generated in admin_portal/sites.py
 main_admin_urlpatterns = []
 
 
 def extend_with_superapp_urlpatterns(main_urlpatterns, superapp_apps):
     extend_superapp_urlpatterns(main_urlpatterns, superapp_apps)
+    # The below function is deprecated and will be removed soon
     extend_superapp_admin_urlpatterns(main_admin_urlpatterns, superapp_apps)
