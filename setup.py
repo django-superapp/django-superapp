@@ -4,8 +4,10 @@ this_directory = Path(__file__).parent
 
 long_description = (this_directory / "README.md").read_text()
 
+PACKAGE_NAME = os.getenv("PACKAGE_NAME", "django-superapp")
+
 setup(
-    name="django_superapp",
+    name=PACKAGE_NAME,
     packages=find_packages(where="src"),
     description="Build your startup's product faster.",
     long_description=long_description,
