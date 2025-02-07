@@ -32,7 +32,14 @@ jobs:
       - name: Update setup.cfg version
         run: |
           sed -i "s/^version = .*/version = ${RELEASE_VERSION}/" setup.cfg
-      - name: Build package
+      - name: Build django_superapp package
         run: make dist
       - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Update setup.cfg version to use superapp as package name
+        run: |
+          sed -i "s/^name = .*/name = superapp/" setup.cfg
+      - name: Build superapp package
+        run: make dist
+      - name: Publish superapp package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
