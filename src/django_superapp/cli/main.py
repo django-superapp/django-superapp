@@ -10,12 +10,13 @@ from .utils import sync_directories, clone_repo, open_repo_in_github, create_pr,
 
 
 def validate_github_repo(ctx, param, value):
-    # Regular expression for GitHub repository URLs
-    github_repo_regex = r'^https:\/\/github\.com\/[a-zA-Z0-9\-_]+\/[a-zA-Z0-9\-_]+$'
+    # Regular expressions for GitHub repository URLs
+    github_https_regex = r'^https:\/\/github\.com\/[a-zA-Z0-9\-_]+\/[a-zA-Z0-9\-_]+$'
+    github_ssh_regex = r'^git@github\.com:[a-zA-Z0-9\-_]+\/[a-zA-Z0-9\-_]+\.git$'
 
-    # Check if the value matches the regex
-    if not re.match(github_repo_regex, value):
-        raise click.BadParameter('The repository URL must be a valid GitHub repository URL.')
+    # Check if the value matches either regex
+    if not re.match(github_https_regex, value) and not re.match(github_ssh_regex, value):
+        raise click.BadParameter('The repository URL must be a valid GitHub HTTPS or SSH URL.')
 
     return value
 
