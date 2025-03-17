@@ -57,7 +57,7 @@ def sync_directories(src, dst, copier_configuration=None):
                             ".git",
                             ".copier-answers.yml",
                             "{{_copier_conf.answers_file}}.jinja",
-                        ] + (copier_configuration.get('_exclude', [])) if copier_configuration else [],
+                        ] + (copier_configuration.get('_exclude', []) if copier_configuration else []),
         verbose=True,
 
     )
