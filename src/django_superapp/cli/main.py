@@ -81,7 +81,7 @@ def pull_template(target_directory):
 @click.argument('target_directory')
 def push_template(target_directory):
     """Push the local changes to the remote template."""
-    fork_directory = f'{target_directory}/superapp_fork'
+    fork_directory = f'/tmp/superapp_forked_repo'
     try:
         with Worker(dst_path=Path(target_directory)) as worker:
             repo_url = worker.subproject.last_answers.get('_src_path')
