@@ -7,16 +7,13 @@ import sysrsync
 import click
 
 
-def clone_repo(repo_url, target_directory, fork_directory):
+def clone_repo(repo_url, target_directory):
     click.echo("Forking the repository...")
     if not is_gh_installed():
         raise click.ClickException(
             "gh is not installed. Please install it before running this command using `brew install gh`."
         )
-    add_to_gitignore(target_directory, 'superapp_fork')
-    remove_directory_if_exists(fork_directory)
-
-    result = subprocess.run(["gh", "repo", "fork", repo_url, "--clone", f'{target_directory}/superapp_fork'], capture_output=True, text=True)
+    result = subprocess.run(["gh", "repo", "fork", repo_url, "--clone", target_directory], capture_output=True, text=True)
     if result.returncode != 0:
         raise click.ClickException(f"Failed to fork repository. Error: {result.stderr}")
 
@@ -67,24 +64,6 @@ def remove_directory_if_exists(directory_path):
     if os.path.exists(directory_path) and os.path.isdir(directory_path):
         shutil.rmtree(directory_path)
 
-
-
-def add_to_gitignore(target_directory, entry):
-    gitignore_path = os.path.join(target_directory, '.gitignore')
-
-    # Check if .gitignore file exists
-    if os.path.exists(gitignore_path):
-        with open(gitignore_path, 'r') as file:
-            lines = file.readlines()
-
-        # Check if entry already exists
-        if not(entry + '\n' in lines or entry in lines):
-            with open(gitignore_path, 'a') as file:
-                file.write(entry + '\n')
-    else:
-        # If .gitignore does not exist, create it and add the entry
-        with open(gitignore_path, 'w') as file:
-            file.write(entry + '\n')
 
 
 def is_gh_installed():

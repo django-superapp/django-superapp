@@ -7,7 +7,7 @@ import yaml
 from copier import run_copy, run_update, Worker
 
 from .utils import sync_directories, clone_repo, open_repo_in_github, create_pr, remove_directory_if_exists
-
+import tempfile
 
 def validate_github_repo(ctx, param, value):
     # Regular expressions for GitHub repository URLs
@@ -81,7 +81,7 @@ def pull_template(target_directory):
 @click.argument('target_directory')
 def push_template(target_directory):
     """Push the local changes to the remote template."""
-    fork_directory = f'/tmp/superapp_forked_repo'
+    fork_directory = tempfile.mkdtemp()
     try:
         with Worker(dst_path=Path(target_directory)) as worker:
             repo_url = worker.subproject.last_answers.get('_src_path')
@@ -97,11 +97,10 @@ def push_template(target_directory):
                 "The target directory does not have a remote repository configured."
             )
 
-        click.echo("Forking the repository in superapp_fork directory...")
+        click.echo(f"Forking the repository in {fork_directory} directory...")
         clone_repo(
             repo_url=repo_url,
-            target_directory=target_directory,
-            fork_directory=fork_directory
+            target_directory=fork_directory,
         )
 
         click.echo("Syncing the directories...")
