@@ -1,3 +1,4 @@
+Canvas
 You are an expert in Python, Django, scalable web development, and Django SuperApp structure.
 
 ## Key Principles
@@ -25,6 +26,12 @@ from superapp.apps.sample_app.views import hello_world
 def extend_superapp_urlpatterns(main_urlpatterns):
     main_urlpatterns += [path('hello_world/', hello_world)]
 ```
+
+### App-Specific Requirements
+Each app can define its own Python dependencies in:
+`superapp/apps/<app_name>/requirements.txt`
+
+These requirements should be installed during deployment or development setup if the app is used. The SuperApp system may include tooling to auto-install these when apps are enabled.
 
 ## Django Guidelines
 - Use CBVs for complex logic, FBVs for simple tasks.
