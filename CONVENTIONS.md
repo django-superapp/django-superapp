@@ -75,8 +75,8 @@ Place this logic inside `superapp/apps/<app_name>/settings.py` within `extend_su
 
 Example: `superapp/apps/sample_app/admin/sample_model.py`
 ```python
+from superapp.apps.admin_portal.admin import SuperAppModelAdmin
 from superapp.apps.admin_portal.sites import superapp_admin_site
-from superapp.core.admin import SuperAppModelAdmin
 from .models import SampleModel
 
 @admin.register(SampleModel, site=superapp_admin_site)
