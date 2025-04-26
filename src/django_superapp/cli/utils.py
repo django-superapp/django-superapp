@@ -51,7 +51,7 @@ def sync_directories(src, dst, copier_configuration=None):
     copier_excludes = (
         copier_configuration.get('_exclude', []) if copier_configuration else []
     ) + (
-        copier_configuration.get('rsync_exclude', []) if copier_configuration else []
+        copier_configuration.get('_rsync_exclude', []) if copier_configuration else []
     )
     copied_excluded_files = [
         c
