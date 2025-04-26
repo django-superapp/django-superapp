@@ -53,5 +53,7 @@ For a more detailed documentation, visit [https://django-superapp.bringes.io](ht
 source venv/bin/activate
 make install-requirements
 make install
+
+# If you want to release it
 make release
 ```

@@ -43,10 +43,27 @@ def sync_directories(src, dst, copier_configuration=None):
         raise click.ClickException(
             "rsync is not installed. Please install it before running this command."
         )
+
+    options = [
+        '-av',
+        '--delete',
+    ]
+    copied_excluded_files = [
+        c
+        for c in (copier_configuration.get('_exclude', []) if copier_configuration else [])
+        if not c.startswith('!')
+    ]
+    copied_included_files = [
+        c
+        for c in (copier_configuration.get('_exclude', []) if copier_configuration else [])
+        if c.startswith('!')
+    ]
+    for c in copied_included_files:
+        options.append(f"--include={c[1:]}")
     sysrsync.run(
         source=src,
         destination=dst,
-        options=['-av', '--delete'],
+        options=options,
         exclusions=[
                             ".DS_Store",
                             "venv",
@@ -54,9 +71,8 @@ def sync_directories(src, dst, copier_configuration=None):
                             ".git",
                             ".copier-answers.yml",
                             "{{_copier_conf.answers_file}}.jinja",
-                        ] + (copier_configuration.get('_exclude', []) if copier_configuration else []),
+                        ] + copied_excluded_files,
         verbose=True,
-
     )
 
 
