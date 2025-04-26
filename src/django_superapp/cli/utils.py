@@ -48,14 +48,19 @@ def sync_directories(src, dst, copier_configuration=None):
         '-av',
         '--delete',
     ]
+    copier_excludes = (
+        copier_configuration.get('_exclude', []) if copier_configuration else []
+    ) + (
+        copier_configuration.get('rsync_exclude', []) if copier_configuration else []
+    )
     copied_excluded_files = [
         c
-        for c in (copier_configuration.get('_exclude', []) if copier_configuration else [])
+        for c in copier_excludes
         if not c.startswith('!')
     ]
     copied_included_files = [
         c
-        for c in (copier_configuration.get('_exclude', []) if copier_configuration else [])
+        for c in copier_excludes
         if c.startswith('!')
     ]
     for c in copied_included_files:
