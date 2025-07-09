@@ -5,6 +5,10 @@
 
 ### Getting Started
 ```bash
+# Install pipx
+brew install pipx
+pipx ensurepath
+
 # Install django_superapp
 pipx install django_superapp --force
 
